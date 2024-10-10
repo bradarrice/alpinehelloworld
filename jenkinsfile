@@ -5,6 +5,7 @@ pipeline{
       "STAGING" = "eazytraining-staging"
       "PRODUCTION" = "eazytraining-production"
     }
+
     agent none
     stages {
       stage('Build Image'){
