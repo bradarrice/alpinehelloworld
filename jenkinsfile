@@ -11,7 +11,7 @@ pipeline{
       stage('Build Image'){
         agent any
         steps{
-            scripts{
+            script{
                 sh 'docker build -t kayden/${IMAGE_NAME}:${IMAGE_TAG} .'
             }
         }
@@ -19,7 +19,7 @@ pipeline{
       stage('Run Container based on builder image'){
         agent any
         steps{
-            scripts{
+            script{
                 sh '''
                       docker run --name ${IMAGE_NAME} -d -p 80:5000 -e PORT= kayden/${IMAGE_NAME}:${IMAGE_TAG}
                       sleep 5
@@ -30,7 +30,7 @@ pipeline{
       stage('Test image'){
         agent any
         steps{
-            scripts{
+            script{
                 sh '''
                    curl http://localhost | grep -q "hello word"
                   '''
@@ -40,7 +40,7 @@ pipeline{
       stage('Remove Image'){
         agent any
         steps{
-            scripts{
+            script{
                 sh '''
                       docker stop $IMAGE_NAME
                       docker rm $IMAGE_NAME
